@@ -12,15 +12,25 @@ Group Unidas
       OutPut=
    End
    ProjectsCount=1
-   Project Novo Projeto
-      FoldersCount=2
-      Folder Fontes
+   Project Integrações
+      FoldersCount=3
+      Folder WS Servers
          VSSPath=Fontes
-         FilesCount=0
+         FilesCount=1
+         File \Projetos\Protheus\Unidas\UNIWS001.PRW
+             Type=T
+         End
       End
-      Folder Definições
+      Folder WS Clients
          VSSPath=Definições
          FilesCount=0
+      End
+      Folder Funções
+         VSSPath=Nova Pasta3
+         FilesCount=1
+         File \Projetos\Protheus\Unidas\AutenticWS.PRW
+             Type=T
+         End
       End
    End
 End
