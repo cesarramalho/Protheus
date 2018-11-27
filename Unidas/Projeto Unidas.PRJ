@@ -23,7 +23,10 @@ Group Unidas
       End
       Folder WS Clients
          VSSPath=Definições
-         FilesCount=0
+         FilesCount=1
+         File \Projetos\Protheus\Unidas\UNIWC001.PRW
+             Type=T
+         End
       End
       Folder Funções
          VSSPath=Nova Pasta3

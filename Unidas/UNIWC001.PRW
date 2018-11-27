@@ -2,14 +2,14 @@
 #INCLUDE "APWEBSRV.CH"
 
 /* ===============================================================================
-WSDL Location    http://localhost/UNIWS001.apw?WSDL
-Gerado em        11/25/18 01:39:11
+WSDL Location    http://172.20.1.51:8060/UNIWS001.apw?WSDL
+Gerado em        11/27/18 14:00:14
 Observações      Código-Fonte gerado por ADVPL WSDL Client 1.120703
                  Alterações neste arquivo podem causar funcionamento incorreto
                  e serão perdidas caso o código-fonte seja gerado novamente.
 =============================================================================== */
 
-User Function _TIRRMQJ ; Return  // "dummy" function - Internal Use 
+User Function _VLPLKST ; Return  // "dummy" function - Internal Use 
 
 /* -------------------------------------------------------------------------------
 WSDL Service WSUNIWS001
@@ -45,7 +45,7 @@ ENDWSCLIENT
 WSMETHOD NEW WSCLIENT WSUNIWS001
 ::Init()
 If !FindFunction("XMLCHILDEX")
-	UserException("O Código-Fonte Client atual requer os executáveis do Protheus Build [7.00.131227A-20180727 NG] ou superior. Atualize o Protheus ou gere o Código-Fonte novamente utilizando o Build atual.")
+	UserException("O Código-Fonte Client atual requer os executáveis do Protheus Build [7.00.120420A-20120726] ou superior. Atualize o Protheus ou gere o Código-Fonte novamente utilizando o Build atual.")
 EndIf
 Return Self
 
@@ -96,15 +96,15 @@ Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
 
-cSoap += '<EXCLUIR xmlns="http://localhost/">'
-cSoap += WSSoapValue("IDLOCAVIA", ::cIDLOCAVIA, cIDLOCAVIA , "string", .T. , .F., 0 , NIL, .F.,.F.) 
-cSoap += WSSoapValue("TOKEN", ::cTOKEN, cTOKEN , "string", .T. , .F., 0 , NIL, .F.,.F.) 
+cSoap += '<EXCLUIR xmlns="http://172.20.1.51:8060/">'
+cSoap += WSSoapValue("IDLOCAVIA", ::cIDLOCAVIA, cIDLOCAVIA , "string", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("TOKEN", ::cTOKEN, cTOKEN , "string", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</EXCLUIR>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
-	"http://localhost/EXCLUIR",; 
-	"DOCUMENT","http://localhost/",,"1.031217",; 
-	"http://localhost/UNIWS001.apw")
+	"http://172.20.1.51:8060/EXCLUIR",; 
+	"DOCUMENT","http://172.20.1.51:8060/",,"1.031217",; 
+	"http://172.20.1.51:8060/UNIWS001.apw")
 
 ::Init()
 ::oWSEXCLUIRRESULT:SoapRecv( WSAdvValue( oXmlRet,"_EXCLUIRRESPONSE:_EXCLUIRRESULT","ARETORNO",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -121,15 +121,15 @@ Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
 
-cSoap += '<INCLUIR xmlns="http://localhost/">'
-cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.,.F.) 
-cSoap += WSSoapValue("TOKEN", ::cTOKEN, cTOKEN , "string", .T. , .F., 0 , NIL, .F.,.F.) 
+cSoap += '<INCLUIR xmlns="http://172.20.1.51:8060/">'
+cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("TOKEN", ::cTOKEN, cTOKEN , "string", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</INCLUIR>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
-	"http://localhost/INCLUIR",; 
-	"DOCUMENT","http://localhost/",,"1.031217",; 
-	"http://localhost/UNIWS001.apw")
+	"http://172.20.1.51:8060/INCLUIR",; 
+	"DOCUMENT","http://172.20.1.51:8060/",,"1.031217",; 
+	"http://172.20.1.51:8060/UNIWS001.apw")
 
 ::Init()
 ::oWSINCLUIRRESULT:SoapRecv( WSAdvValue( oXmlRet,"_INCLUIRRESPONSE:_INCLUIRRESULT","ARETORNO",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -146,14 +146,14 @@ Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
 
-cSoap += '<VALIDACAO xmlns="http://localhost/">'
-cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.,.F.) 
+cSoap += '<VALIDACAO xmlns="http://172.20.1.51:8060/">'
+cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</VALIDACAO>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
-	"http://localhost/VALIDACAO",; 
-	"DOCUMENT","http://localhost/",,"1.031217",; 
-	"http://localhost/UNIWS001.apw")
+	"http://172.20.1.51:8060/VALIDACAO",; 
+	"DOCUMENT","http://172.20.1.51:8060/",,"1.031217",; 
+	"http://172.20.1.51:8060/UNIWS001.apw")
 
 ::Init()
 ::oWSVALIDACAORESULT:SoapRecv( WSAdvValue( oXmlRet,"_VALIDACAORESPONSE:_VALIDACAORESULT","ARRAYOFSTRING",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -170,14 +170,14 @@ Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
 
-cSoap += '<VALIDAITEM xmlns="http://localhost/">'
-cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.,.F.) 
+cSoap += '<VALIDAITEM xmlns="http://172.20.1.51:8060/">'
+cSoap += WSSoapValue("PEDIDO", ::oWSPEDIDO, oWSPEDIDO , "APEDIDO", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</VALIDAITEM>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
-	"http://localhost/VALIDAITEM",; 
-	"DOCUMENT","http://localhost/",,"1.031217",; 
-	"http://localhost/UNIWS001.apw")
+	"http://172.20.1.51:8060/VALIDAITEM",; 
+	"DOCUMENT","http://172.20.1.51:8060/",,"1.031217",; 
+	"http://172.20.1.51:8060/UNIWS001.apw")
 
 ::Init()
 ::oWSVALIDAITEMRESULT:SoapRecv( WSAdvValue( oXmlRet,"_VALIDAITEMRESPONSE:_VALIDAITEMRESULT","ARRAYOFSTRING",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -245,8 +245,8 @@ Return oClone
 
 WSMETHOD SOAPSEND WSCLIENT UNIWS001_APEDIDO
 	Local cSoap := ""
-	cSoap += WSSoapValue("CABEC", ::oWSCABEC, ::oWSCABEC , "ACABECVENDA", .T. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("ITENS", ::oWSITENS, ::oWSITENS , "ARRAYOFAITENS", .T. , .F., 0 , NIL, .F.,.F.) 
+	cSoap += WSSoapValue("CABEC", ::oWSCABEC, ::oWSCABEC , "ACABECVENDA", .T. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("ITENS", ::oWSITENS, ::oWSITENS , "ARRAYOFAITENS", .T. , .F., 0 , NIL, .F.) 
 Return cSoap
 
 // WSDL Data Structure ARRAYOFSTRING
@@ -311,11 +311,11 @@ Return oClone
 
 WSMETHOD SOAPSEND WSCLIENT UNIWS001_ACABECVENDA
 	Local cSoap := ""
-	cSoap += WSSoapValue("C5_CLIENTE", ::cC5_CLIENTE, ::cC5_CLIENTE , "string", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C5_EMISSAO", ::dC5_EMISSAO, ::dC5_EMISSAO , "date", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C5_IDLOCAV", ::cC5_IDLOCAV, ::cC5_IDLOCAV , "string", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C5_LOJA", ::cC5_LOJA, ::cC5_LOJA , "string", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C5_NUM", ::cC5_NUM, ::cC5_NUM , "string", .F. , .F., 0 , NIL, .F.,.F.) 
+	cSoap += WSSoapValue("C5_CLIENTE", ::cC5_CLIENTE, ::cC5_CLIENTE , "string", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C5_EMISSAO", ::dC5_EMISSAO, ::dC5_EMISSAO , "date", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C5_IDLOCAV", ::cC5_IDLOCAV, ::cC5_IDLOCAV , "string", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C5_LOJA", ::cC5_LOJA, ::cC5_LOJA , "string", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C5_NUM", ::cC5_NUM, ::cC5_NUM , "string", .F. , .F., 0 , NIL, .F.) 
 Return cSoap
 
 // WSDL Data Structure ARRAYOFAITENS
@@ -347,7 +347,7 @@ Return oClone
 
 WSMETHOD SOAPSEND WSCLIENT UNIWS001_ARRAYOFAITENS
 	Local cSoap := ""
-	aEval( ::oWSAITENS , {|x| cSoap := cSoap  +  WSSoapValue("AITENS", x , x , "AITENS", .F. , .F., 0 , NIL, .F.,.F.)  } ) 
+	aEval( ::oWSAITENS , {|x| cSoap := cSoap  +  WSSoapValue("AITENS", x , x , "AITENS", .F. , .F., 0 , NIL, .F.)  } ) 
 Return cSoap
 
 // WSDL Data Structure AITENS
@@ -382,11 +382,9 @@ Return oClone
 
 WSMETHOD SOAPSEND WSCLIENT UNIWS001_AITENS
 	Local cSoap := ""
-	cSoap += WSSoapValue("C6_LOCAL", ::nC6_LOCAL, ::nC6_LOCAL , "float", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C6_PRCVEN", ::nC6_PRCVEN, ::nC6_PRCVEN , "float", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C6_PRODUTO", ::cC6_PRODUTO, ::cC6_PRODUTO , "string", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C6_QTDVEN", ::nC6_QTDVEN, ::nC6_QTDVEN , "integer", .F. , .F., 0 , NIL, .F.,.F.) 
-	cSoap += WSSoapValue("C6_TES", ::nC6_TES, ::nC6_TES , "float", .F. , .F., 0 , NIL, .F.,.F.) 
+	cSoap += WSSoapValue("C6_LOCAL", ::nC6_LOCAL, ::nC6_LOCAL , "float", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C6_PRCVEN", ::nC6_PRCVEN, ::nC6_PRCVEN , "float", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C6_PRODUTO", ::cC6_PRODUTO, ::cC6_PRODUTO , "string", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C6_QTDVEN", ::nC6_QTDVEN, ::nC6_QTDVEN , "integer", .F. , .F., 0 , NIL, .F.) 
+	cSoap += WSSoapValue("C6_TES", ::nC6_TES, ::nC6_TES , "float", .F. , .F., 0 , NIL, .F.) 
 Return cSoap
-
-

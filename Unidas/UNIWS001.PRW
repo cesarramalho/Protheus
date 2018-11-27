@@ -27,7 +27,7 @@ ENDWSSERVICE
 
 //=========================================================================
 WSSTRUCT aCabecVenda      
-	WSDATA C5_NUM			as String OPTIONAL 	//CODIGO
+	//WSDATA C5_NUM			as String OPTIONAL 	//CODIGO
 	WSDATA C5_IDLOCAV		as String OPTIONAL 	//Localvia FK
 	WSDATA C5_CLIENTE		as String OPTIONAL 	//Cliente
 	WSDATA C5_LOJA			as String OPTIONAL 	//Loja
@@ -103,8 +103,7 @@ If !::VALIDACAO()
 	lContinua:= .F.
 EndIf		
 
-::PEDIDO:CABEC:C5_NUM:= getSx8Num("SC5","C5_NUM")        
-CONOUT("Codigo Pedido Protheus - "+::PEDIDO:CABEC:C5_NUM)
+_C5_PEDIDO:= getSx8Num("SC5","C5_NUM")   
 
 Begin Transaction
 
@@ -112,38 +111,22 @@ If lContinua
 	::RETORNO := WSClassNew("aRetorno")
 	ConOut("Inicio: "+Time())
 	
-	cNatureza := GetNatureza(::PEDIDO:CABEC:C5_TIPOPAG)
-	
-	aadd(aCabec,{"C5_NUM"   	,::PEDIDO:CABEC:C5_NUM		,Nil})
+	aadd(aCabec,{"C5_NUM"   	,_C5_PEDIDO		,Nil})
 	aadd(aCabec,{"C5_IDLOCAV" 	,::PEDIDO:CABEC:C5_IDLOCAV	,Nil})
 	aadd(aCabec,{"C5_CLIENTE"	,::PEDIDO:CABEC:C5_CLIENTE	,Nil})
-	aadd(aCabec,{"C5_LOJACLI"	,'01'								,Nil})
+	aadd(aCabec,{"C5_LOJACLI"	,::PEDIDO:CABEC:C5_LOJA		,Nil})
 	aadd(aCabec,{"C5_CLIENT"	,::PEDIDO:CABEC:C5_CLIENTE	,Nil})
 	aadd(aCabec,{"C5_LOJAENT"	,::PEDIDO:CABEC:C5_LOJA		,Nil})
-	aadd(aCabec,{"C5_FRETE"		,::PEDIDO:CABEC:C5_FRETE	,Nil})
-	aadd(aCabec,{"C5_EMISSAO"	,::PEDIDO:CABEC:C5_EMISSAO	,Nil})
-	aadd(aCabec,{"C5_CONDPAG"	,::PEDIDO:CABEC:C5_CONDPAG	,Nil})
-	aadd(aCabec,{"C5_TRANSP"	,::PEDIDO:CABEC:C5_TRANSP	,Nil})
-	aadd(aCabec,{"C5_TIPOPAG"	,::PEDIDO:CABEC:C5_TIPOPAG	,Nil})
-	aadd(aCabec,{"C5_ESTENTR"	,::PEDIDO:CABEC:C5_ESTENTR	,Nil})
-	aadd(aCabec,{"C5_DESCONT"	,::PEDIDO:CABEC:C5_DESCONT	,Nil})
-	aadd(aCabec,{"C5_TOTAL"		,::PEDIDO:CABEC:C5_TOTAL	,Nil})
-	//aadd(aCabec,{"C5_NATUREZ"	,  cNatureza					,Nil})
-	//aadd(aCabec,{"C5_PESOL"		,::PEDIDO:CABEC:C5_PESOL	,Nil})
-	//aadd(aCabec,{"C5_PBRUTO"	,::PEDIDO:CABEC:C5_PESOL	,Nil})
-	//aadd(aCabec,{"C5_ESPECI1"	,	"CX"							,Nil})
-	//aadd(aCabec,{"C5_VOLUME1"	,	1								,Nil})
-	//aadd(aCabec,{"C5_TPFRETE"	,  'C'							,Nil})
-	//aadd(aCabec,{"C5_TID"		,::PEDIDO:CABEC:C5_TID		,Nil})
-	//aadd(aCabec,{"C5_MENNOTA"	,::PEDIDO:CABEC:C5_MENNOTA	,Nil})
+	aadd(aCabec,{"C5_EMISSAO"	,ddatabase						,Nil})
+	aadd(aCabec,{"C5_CONDPAG"	,"001"							,Nil})
 	
 	For i:=1 to len(::PEDIDO:ITENS)
 		nIndiceItem := i
-		cTes:= u_GetTes(alltrim(::PEDIDO:CABEC:C5_ESTENTR),alltrim(::PEDIDO:ITENS[i]:C6_PRODUTO))
+		cTes:= "501"
+	
 		If !::VALIDAITEM()
-		   ::RETORNO:CODIGO 			:= ::VETOR[1]
+		   ::RETORNO:CODIGO 			:= '400'//::VETOR[1]
 			::RETORNO:OCORRENCIA		:= ::VETOR[2]
-			U_Z7F0001(cCod, ,cWS,::RETORNO:OCORRENCIA, '2')
 			SetSoapFaut('Erro: ',::RETORNO:OCORRENCIA)
 			Return .F.
 		EndIf		
@@ -155,7 +138,6 @@ If lContinua
 		aadd(aLinha,{"C6_QTDLIB"		,::PEDIDO:ITENS[i]:C6_QTDVEN	,Nil})
 		aadd(aLinha,{"C6_PRUNIT"		,::PEDIDO:ITENS[i]:C6_PRUNIT	,Nil})
 		aadd(aLinha,{"C6_PRCVEN"		,::PEDIDO:ITENS[i]:C6_PRCVEN	,Nil})
-		aadd(aLinha,{"C6_VALDESC"		,::PEDIDO:ITENS[i]:C6_VALDESC	,Nil})
 		aadd(aLinha,{"C6_VALOR"			,::PEDIDO:ITENS[i]:C6_VALOR	,Nil})
 		aadd(aLinha,{"C6_TES"			,cTes									,Nil})
 		aadd(aItens,aLinha)
@@ -175,11 +157,9 @@ If lContinua
 	Else                            
 		ConfirmSX8()
 		::RETORNO:CODIGO 			:= cOk
-		::RETORNO:OCORRENCIA		:= U_GetOcorr(::RETORNO:CODIGO)
+		::RETORNO:OCORRENCIA		:= "Transação finalizada com sucesso"
 		
-		U_Z7F0001(cCod, ,cWS, ::RETORNO:OCORRENCIA, '1')
-		U_GeraHist("Faturamento","SC5",::PEDIDO:CABEC:C5_CLIENTE,::PEDIDO:CABEC:C5_NUM+" - Pedido de Venda",;
-		"Pedido de venda "+::PEDIDO:CABEC:C5_NUM+ " incluido com sucesso",.F.)
+		conout(::RETORNO:OCORRENCIA)
 	EndIf
 Else
 	::RETORNO:CODIGO 			:= cError
@@ -250,7 +230,7 @@ EndIf
 
 //Pedido de venda
 SC5->(dbSetOrder(6))
-If lContinua .and. SC5->(dbSeek(Alltrim(::PEDIDO:CABEC:C5_IDLOCAV)))
+If lContinua .and. SC5->(dbSeek(Alltrim(::PEDIDO:CABEC:C5_IDLOCAV))) //.and. inclui?
 	::VETOR[1]	:= '300'
 	::VETOR[2]	:= " - SC5 ->Pedido já foi cadastrado anteriormente"
 	lContinua	:= .F.
